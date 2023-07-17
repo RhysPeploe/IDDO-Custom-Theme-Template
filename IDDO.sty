@@ -1,0 +1,158 @@
+%%% Sets up the theme
+\RequirePackage{tikz}
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Hides the navigation controls from the slide
+\setbeamertemplate{navigation symbols}{} 
+%%% Creates section navigation bar at the top of each slide
+\useoutertheme[subsection = false]{smoothbars} 
+%%% Uses circles in the table of contents
+\useinnertheme{circles}
+%%% Shadow effect on bullet points
+\useinnertheme[shadow=true]{rounded} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Creates contents pages reappearing at each section and subsection
+\AtBeginSection[]{
+    \begin{frame}
+        \tableofcontents[sectionstyle = show/shaded,
+                        subsectionstyle = show/shaded/hide, 
+                        subsubsectionstyle = show/shaded/hide]
+    \end{frame}
+}
+
+\AtBeginSubsection[]{
+    \begin{frame}
+        \tableofcontents[sectionstyle = show/shaded,
+                        subsectionstyle = show/shaded/hide,
+                        subsubsectionstyle = show/shaded/hide]
+    \end{frame}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Define the IDDO branded colours using RGB codes
+\definecolor{iddo_blue}{RGB}{20, 177, 231}
+\definecolor{iddo_red}{RGB}{227, 27, 35}
+
+\definecolor{iddo_secondary_blue}{RGB}{9, 134, 179}
+\definecolor{iddo_secondary_red}{RGB}{167, 1, 12}
+\definecolor{iddo_clay}{RGB}{183, 95, 96}
+\definecolor{iddo_white}{RGB}{241, 242, 245}
+\definecolor{iddo_slate}{RGB}{67, 92, 102}
+
+\definecolor{iddo_topaz}{RGB}{9, 179, 165}
+\definecolor{iddo_jade}{RGB}{59, 123, 101}
+\definecolor{iddo_cobalt}{RGB}{23, 77, 151}
+\definecolor{iddo_purple}{RGB}{122, 59, 123}
+\definecolor{iddo_orange}{RGB}{227, 114, 16}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Commands to create frame number in bottom right of slides
+\newcommand{\frameofframes}{/}
+\newcommand{\setframeofframes}[1]{\renewcommand{\frameofframes}{#1}}
+
+%%% Code for the footer in each slide
+\setbeamertemplate{footline}{
+    %%% Upper footer design [ht - height of box, dp - depth of text, -skip - space between sides of slide]
+    \begin{beamercolorbox}[ht = 2.5ex, dp = 1.125ex, leftskip = .3cm, rightskip = 0.3cm]{upperfootline}
+        \insertshortauthor %%% Insert the short author name 
+        \hfill %%% Fill the space horizontally, equal spacing
+        \insertshortinstitute %%% Insert the short author name 
+    \end{beamercolorbox}
+    %%% Lower footer design
+    \begin{beamercolorbox}[ht = 2.5ex, dp = 1.125ex, leftskip = .3cm, rightskip = 0.3cm]{lowerfootline}
+        \insertshorttitle %%% Insert short title 
+        \hfill
+        \insertframenumber~\frameofframes~\inserttotalframenumber %%% Insert the frame number
+    \end{beamercolorbox}
+}
+
+%%% Set colours for the upper and lower footer {bg - background, fg - foreground/text}
+\setbeamercolor{upperfootline}{bg = iddo_cobalt!90, fg = white}
+\setbeamercolor{lowerfootline}{bg = iddo_blue, fg = white}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Set colour & font for the title slide
+\setbeamercolor{title}{fg = iddo_red, bg = {}} 
+\setbeamerfont{title}{size = \large}
+
+\setbeamercolor{subtitle}{fg = iddo_white} 
+\setbeamerfont{subtitle}{size = \normalsize}
+
+\setbeamercolor{author}{fg = iddo_red}
+\setbeamerfont{author}{size = \normalsize}
+
+\setbeamercolor{institute}{fg = iddo_red}
+\setbeamerfont{institute}{size = \normalsize}
+
+\setbeamercolor{date}{fg = iddo_white}
+\setbeamerfont{date}{size = \normalsize}
+
+%%% Set colour for the top header / section naviagtion
+\setbeamercolor{palette quaternary}{fg = white, bg = iddo_cobalt} %top section navigation strip 
+
+%%% Set colour for normal slides 
+\setbeamercolor{frametitle}{fg = iddo_cobalt, bg = iddo_white}
+\setbeamerfont{frametitle}{size = \Large}
+
+%%% Set colour and design for blocks
+\setbeamercolor{block title}{bg = iddo_blue, fg = iddo_white}
+\setbeamercolor{block body}{bg = iddo_blue!15}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+%%% Set colour for alerts
+\setbeamercolor{alerted text}{fg = iddo_red}
+
+%%% Set colour and design for itemised lists
+\setbeamertemplate{itemize items}[triangle] %circle, square, triangle
+\setbeamercolor{itemize item}{fg=iddo_slate}
+\setbeamercolor{itemize subitem}{fg=iddo_slate}
+
+%%% Set text colour for slides
+\setbeamercolor{normal text}{fg=black}
+
+%%% Set design for bibliography
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Create title page 
+\defbeamertemplate*{title page}{mydefault}[1][]{
+  \vspace{3cm} %%% Shifts text vertically down
+  \begingroup
+    \begin{columns}
+        \column{0.4\paperwidth}
+            %%% First column blank
+        \column{0.6\paperwidth} %%% Two coloumns split 40/60
+            %%% In the second column...
+            \begin{beamercolorbox}[sep=8pt, left]{title}
+                \usebeamerfont{title}\textbf{\inserttitle}\par %%% Title, using specified font and textbf - bold
+                \ifx\insertsubtitle\@empty %%% If a subtitle is specified, it will be inserted here
+                \else
+                \vskip0.25em %%% Add space between the title and subtitle
+                {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+                \fi  
+            \end{beamercolorbox}
+            
+        \begin{beamercolorbox}[sep=8pt, left]{author}
+            \usebeamerfont{author}\insertauthor
+        \end{beamercolorbox}
+        
+        \begin{beamercolorbox}[sep=8pt, left]{institute}
+            \usebeamerfont{institute}\insertinstitute
+        \end{beamercolorbox}
+        
+        \begin{beamercolorbox}[sep=8pt, left]{date}
+            \usebeamerfont{date}\insertdate
+        \end{beamercolorbox}
+        \vskip0.5em
+    \end{columns}
+    \endgroup
+}
+
+\setbeamertemplate{title page}[mydefault][colsep=-4bp, rounded=true, shadow=\beamer@themerounded@shadow, wd=4cm] 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Finishes the theme
+\mode
+<all>
